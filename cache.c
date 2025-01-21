@@ -1,33 +1,27 @@
 #include "cache.h"
 
 
-void initialize_cache_block(cacheBlock* cacheBlock)
-{   
-    cacheBlock->valid = 0;
-    cacheBlock->tag = 0;
-    cacheBlock->data = (void*)malloc(BLOCK_SIZE);
-}
-
-void initialize_cache_set(cacheSet* cacheSet)
+cache* initialize_cache()
 {
-    cacheSet->sets = (cacheBlock**)malloc(BLOCKS_IN_SET * sizeof(cacheBlock));
-    for(int i = 0; i < BLOCKS_IN_SET; i++)
-    {
-        cacheBlock* block = (cacheBlock*)malloc(sizeof(cacheBlock));    
-        initialize_cache_block(block);
-        cacheSet->sets[i] = block;
-    }
-}
-
-void initialize_cache(cache* cache)
-{
-    cache->cache = (cacheSet**)malloc(SETS_IN_CACHE * sizeof(cacheSet));
+    cache* cacheMem = (cache*)malloc(sizeof(cache));
+    cacheMem->cache = (cacheSet**)malloc(sizeof(cacheSet) * SETS_IN_CACHE);
     for(int i = 0; i < SETS_IN_CACHE; i++)
     {
-        cacheSet* set = (cacheSet*)malloc(sizeof(cacheSet));    
-        initialize_cache_set(set);
-        cache->cache[i] = set;
+        cacheSet* cacheSetMem = (cacheSet*)malloc(sizeof(cacheSet));
+        cacheSetMem->sets = (cacheBlock**)malloc(sizeof(cacheBlock) * BLOCKS_IN_SET);
+        for(int j = 0; j < BLOCKS_IN_SET; j++)
+        {
+            cacheBlock *cacheBlockMem = (cacheBlock*)malloc(sizeof(cacheBlock));
+            
+            cacheBlockMem->valid = 0;
+            cacheBlockMem->tag = 0;
+            cacheBlockMem->data = (void*)malloc(BLOCK_SIZE);
+            
+            cacheSetMem->sets[j] = cacheBlockMem;
+        }
+        cacheMem->cache[i] = cacheSetMem;
     }
+    return cacheMem;
 }
 
 
