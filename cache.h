@@ -8,6 +8,7 @@ typedef struct
 {
     int valid;     
     unsigned tag;  
+    char entering_counter;
     void* data;    
 } cacheBlock;
 
@@ -24,9 +25,7 @@ typedef struct
 } cache;
 
 
-void initialize_cache_block(cacheBlock* block);
-void initialize_cache_set(cacheSet* set);
-void initialize_cache(cache* cache);
+cache* initialize_cache();
 
 
 void free_cache(cache* cache);
