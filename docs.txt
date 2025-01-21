@@ -6,7 +6,7 @@ mem
 
 4-way set-associative cache
 
-block size - 16 byte
+block size - 16 bytes
 blocks in set - 4 blocks
 sets in cache - 16 sets
 
