@@ -4,10 +4,10 @@
 #include <stdio.h>
 
 
-#define MEM_SIZE 1024 * 1024 
-#define BLOCK_SIZE 16         
+#define MEM_SIZE 1024 * 1024
+#define BLOCK_SIZE 16          
 #define BLOCKS_IN_SET 4      
-#define SETS_IN_CACHE 16      
+#define SETS_IN_CACHE 16     
 
 #define OFFSET_BITS (32 - __builtin_clz(BLOCK_SIZE - 1))   
 #define bit_mask_offset ((1 << OFFSET_BITS) - 1)             
